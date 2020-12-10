@@ -1,8 +1,36 @@
 <html>
     <head>
         <title>AoC Scoreboard</title>
+        <script src="/js/plotly-latest.min.js"></script>
+        <link rel="stylesheet" href="/css/aoc-style.css">
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
-        Hello World!
+        <!-- <header>
+            <h1 class="title-global">
+                <a href="/">AoC Scoreboard</a>
+            </h1>
+        </header> -->
+        <main>
+            <div class="leftbar">
+                <div class="leftupper">
+                    <article class="desc day-desc">
+                        <h2>--- AoC Scoreboard ---</h2>
+                        <br>
+                        Currently <em id="leader-name">...</em> is in the lead with <em id="leader-score" class="star">...</em> points!
+                        <br>
+                    </article>
+                    <article id="scoreboard"></article>
+                </div>
+                <!-- <div class="leftunder">
+                    <div class="plot" id="avg-plot"></div>
+                </div> -->
+            </div>
+            <div class="rightbar">
+                <div class="plot" id="part1-plot"></div>
+                <div class="plot" id="part2-plot"></div>
+            </div>
+        </main>
     </body>
+    <script src="js/generate.js"></script>
 </html>

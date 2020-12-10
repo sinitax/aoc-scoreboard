@@ -1,0 +1,104 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+article.desc {
+    display: inline;
+}
+
+article {
+    width: auto !important;
+}
+
+.leftbar {
+    padding-top: 30px;
+    /* height: 100vh; */
+    max-height: 100vh;
+    width: max(30em, 45%);
+    max-width: max(30em, 45%);
+    margin-left: max(50px, 10%);
+    display: inline-block;
+    float: left;
+}
+
+.rightbar {
+    padding-top: 30px;
+    /* height: 100vh; */
+    width: 33%;
+    display: inline-block;
+}
+
+#part1-plot {
+    margin-bottom: 30px;
+}
+
+.rightbar > .plot {
+    width: 450px;
+    height: 350px;
+}
+
+article > h2 {
+    margin-top: 0px;
+}
+
+.leftupper {
+    padding-bottom: 20px;
+}
+
+.leftunder {
+    width: calc(100% - 50px);
+    margin-right: 50px;
+    padding-bottom: 40px;
+}
+
+.leftunder > .plot {
+    height: calc(100% - 50px);
+}
+
+.plot {
+    border: 1px solid white;
+}
+
+#scoreboard {
+    margin-top: 70px;
+}
+
+@media screen and (max-width: 50em) {
+    .leftbar {
+        width: min(80%, calc(100% - 100px));
+    }
+
+    .rightbar {
+        width: 100%;
+        padding-top: 0px;
+    }
+
+    .rightbar > .plot {
+        display: inline-block;
+        width: 80%;
+        margin: calc(10% - 2px);
+    }
+
+    #part1-plot {
+        float:left;
+    }
+}
+
+.modebar-container {
+    display: none;
+}
+
+.action {
+    color:#ddd;
+}
+
+.action:hover {
+    cursor: pointer;
+    color: #fff;
+}
