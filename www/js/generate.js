@@ -22,10 +22,10 @@ function numToColor(v) {
     return `hsl(${(v % color_count) * 360 / color_count}, 80%, 50%)`;
 }
 
-function partTime(epoch) {
+function partTime(epoch, day) {
     var date = new Date(0);
     date.setUTCSeconds(new Number(epoch));
-    return date.getUTCHours() * 60 + date.getUTCMinutes();
+    return (date.getUTCDate() - day) * 24 * 60 + date.getUTCHours() * 60 + date.getUTCMinutes();
 }
 
 function gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors) {
@@ -139,10 +139,10 @@ async function reload(plottarget) {
             var day = (i + 1).toString();
             if (completed_days.hasOwnProperty(day)) {
                 trace1.x.push(day);
-                trace1.y.push(partTime(completed_days[day][1].get_star_ts));
+                trace1.y.push(partTime(completed_days[day][1].get_star_ts, i+1));
                 if (completed_days[day].hasOwnProperty("2")) {
                     trace2.x.push(day);
-                    trace2.y.push(partTime(completed_days[day][2].get_star_ts) - partTime(completed_days[day][1].get_star_ts));
+                    trace2.y.push(partTime(completed_days[day][2].get_star_ts, i+1) - partTime(completed_days[day][1].get_star_ts, i+1));
                 }
             }
 
