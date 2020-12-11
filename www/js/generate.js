@@ -64,7 +64,7 @@ function gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors) {
         row.innerHTML = '<span class="privboard-position">' + (Number(memid) + 1).toString() + ')</span> <pre style="display:inline">' + mem["local_score"].toString().padStart(2) + '</pre> ';
         var completed_days = Object.values(mem.completion_day_level);
         for (var i = 0; i < 25; i++) {
-            if (i >= completed_days.length) {
+            if (!mem.completion_day_level.hasOwnProperty((i + 1).toString())) {
                 if (i >= current_day) {
                     row.innerHTML += '<span class="privboard-star-locked">*</span>';
                 } else {
@@ -139,7 +139,7 @@ async function reload(plottarget) {
             var day = (i + 1).toString();
             trace1.x.push(day);
             trace2.x.push(day);
-            if (i < completed_days.length) {
+            if (memberlist[memid].completion_day_level.hasOwnProperty((i + 1).toString())) {
                 trace1.y.push(partTime(completed_days[i][1].get_star_ts));
                 if (completed_days[i].hasOwnProperty("2")) {
                     trace2.y.push(partTime(completed_days[i][2].get_star_ts) - partTime(completed_days[i][1].get_star_ts));
