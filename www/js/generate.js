@@ -84,7 +84,9 @@ function gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors) {
 }
 
 async function reload(plottarget) {
-    var scoreboard = await fetch("/data/scoreboard.json").then(response => response.text()).then(text => JSON.parse(text));
+    var scoreboard = await fetch("/data/scoreboard.json")
+        .then(response => response.text())
+        .then(text => JSON.parse(text));
 
     /* check date */
     var date = new Date();
@@ -106,7 +108,7 @@ async function reload(plottarget) {
         var seed = strhash(memberlist[i].name);
         var rand = Math.floor(mulberry32(seed)() * 36);
         var color = numToColor(rand);
-        if (i < color_count) {
+        if (i < color_count) { /* try to avoid collisions for small number of members */
             while (membercolors.includes(color)) {
                 rand += 1;
                 color = numToColor(rand);
@@ -118,11 +120,6 @@ async function reload(plottarget) {
     if (scoreboard_div.children.length == 0) {
         gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors);
     }
-
-    // console.log(scoreboard);
-    // console.log(members);
-    // console.log(memberlist);
-    // console.log(membercolors);
 
     var traces1 = [];
     var traces2 = [];
@@ -158,12 +155,10 @@ async function reload(plottarget) {
     }
 
     var base_layout = {
-        //yaxis : { type: "date" },
         fixedrange: true,
         showlegend: false,
         paper_bgcolor: "rgba(0,0,0,0)",
         plot_bgcolor: "rgba(0,0,0,0)",
-        //hovermode: false,
         modebar: false,
         font: {
             color: "#fff",
@@ -183,16 +178,10 @@ async function reload(plottarget) {
     layout2.title = 'minutes for part 2';
     layout2.margin = {b: 40};
 
-    var layout3 = {};
-    Object.assign(layout3, base_layout);
-    layout3.title = 'solve time for per day';
-    layout3.margin = {l: 40, r: 40};
-
     var config = {responsive: true};
 
     Plotly.newPlot('part1-plot', traces1, layout1, config);
     Plotly.newPlot('part2-plot', traces2, layout2, config);
-    // Plotly.newPlot("avg-plot", traceavg, layout3, config);
 }
 
 var last_target = null;
