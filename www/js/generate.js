@@ -62,16 +62,16 @@ function gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors) {
         var row = document.createElement("div");
         row.className = "privboard-row";
         row.innerHTML = '<span class="privboard-position">' + (Number(memid) + 1).toString() + ')</span> <pre style="display:inline">' + mem["local_score"].toString().padStart(2) + '</pre> ';
-        var completed_days = Object.values(mem.completion_day_level);
+        var completed_days = mem.completion_day_level;
         for (var i = 0; i < 25; i++) {
-            if (!mem.completion_day_level.hasOwnProperty((i + 1).toString())) {
+            if (!completed_days.hasOwnProperty((i + 1).toString())) {
                 if (i >= current_day) {
                     row.innerHTML += '<span class="privboard-star-locked">*</span>';
                 } else {
                     row.innerHTML += '<span class="privboard-star-unlocked">*</span>';
                 }
             } else {
-                if (completed_days[i].hasOwnProperty("2")) {
+                if (completed_days[(i + 1).toString()].hasOwnProperty("2")) {
                     row.innerHTML += '<span class="privboard-star-both">*</span>';
                 } else {
                     row.innerHTML += '<span class="privboard-star-single">*</span>';
@@ -131,18 +131,18 @@ async function reload(plottarget) {
             continue;
         var trace1 = { x: [], y: [], textposition: "inside", type: 'bar', marker: { color: membercolors[memid] } };
         var trace2 = { x: [], y: [], textposition: "inside", type: 'bar', marker: { color: membercolors[memid] } };
-        var completed_days = Object.values(memberlist[memid].completion_day_level);
+        var completed_days = memberlist[memid].completion_day_level;
         for (var i = 0; i < current_day; i++) {
             trace1.name = memberlist[memid].name;
             trace2.name = memberlist[memid].name;
 
             var day = (i + 1).toString();
-            trace1.x.push(day);
-            trace2.x.push(day);
-            if (memberlist[memid].completion_day_level.hasOwnProperty((i + 1).toString())) {
-                trace1.y.push(partTime(completed_days[i][1].get_star_ts));
-                if (completed_days[i].hasOwnProperty("2")) {
-                    trace2.y.push(partTime(completed_days[i][2].get_star_ts) - partTime(completed_days[i][1].get_star_ts));
+            if (completed_days.hasOwnProperty(day)) {
+                trace1.x.push(day);
+                trace1.y.push(partTime(completed_days[day][1].get_star_ts));
+                if (completed_days[day].hasOwnProperty("2")) {
+                    trace2.x.push(day);
+                    trace2.y.push(partTime(completed_days[day][2].get_star_ts) - partTime(completed_days[day][1].get_star_ts));
                 }
             }
 
