@@ -29,9 +29,16 @@ function partTime(epoch, day) {
 }
 
 function gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors) {
+    /* get max amount of points */
+    var pointpad = 2;
+    for (var memid in memberlist) {
+        var digits = memberlist[memid]["local_score"].toString().length;
+        if (digits > pointpad) pointpad = digits;
+    }
+
     var first_row = document.createElement("div");
     first_row.className = "privboard-row";
-    first_row.innerHTML = "      ";
+    first_row.innerHTML = "".padStart(4 + pointpad);
     var inner = document.createElement("span");
     inner.className = "privboard-days";
     for (var i = 0; i < 25; i++) {
@@ -61,7 +68,7 @@ function gen_scoreboard(scoreboard_div, current_day, memberlist, membercolors) {
         var mem = memberlist[memid];
         var row = document.createElement("div");
         row.className = "privboard-row";
-        row.innerHTML = '<span class="privboard-position">' + (Number(memid) + 1).toString() + ')</span> <pre style="display:inline">' + mem["local_score"].toString().padStart(2) + '</pre> ';
+        row.innerHTML = '<span class="privboard-position">' + (Number(memid) + 1).toString() + ')</span> <pre style="display:inline">' + mem["local_score"].toString().padStart(pointpad) + '</pre> ';
         var completed_days = mem.completion_day_level;
         for (var i = 0; i < 25; i++) {
             if (!completed_days.hasOwnProperty((i + 1).toString())) {
