@@ -91,10 +91,10 @@ async function reload(plottarget) {
     /* check date */
     var date = new Date();
     var current_day = 0;
-    if (date.getFullYear() > scoreboard["event"]) {
+    if (date.getUTCFullYear() > scoreboard["event"]) {
         current_day = 26;
-    } else if (date.getMonth() == 11) {
-        current_day = date.getDate();
+    } else if (date.getUTCMonth() == 11) {
+        current_day = date.getUTCDate();
     }
 
     var scoreboard_div = document.getElementById("scoreboard");
