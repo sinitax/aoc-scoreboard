@@ -102,3 +102,17 @@ article > h2 {
     cursor: pointer;
     color: #fff;
 }
+
+hint > #timestamp-hint {
+    display: none;
+    opacity: 0;
+    background-color: #0000;
+    border: 1px solid #BBB;
+    border-radius: 1px;
+    padding: 2px 5px;
+    font-size: 8pt;
+    margin-top: -23px;
+    margin-left: -60px;
+    position: absolute;
+}
+

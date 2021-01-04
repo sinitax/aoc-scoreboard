@@ -201,4 +201,26 @@ function reload_action(target) {
     reload(last_target);
 }
 
+function load_timestamp() {
+    var client = new XMLHttpRequest();
+    client.open('GET', '/data/timestamp.txt');
+    client.onreadystatechange = function() {
+        var ts = document.getElementById("timestamp-hint");
+        if (client.status != 200) return;
+        ts.innerHTML = client.responseText;
+        ts.style.opacity = 1;
+        var hint = ts.parentNode;
+        hint.addEventListener("mouseover", function() {
+            ts.style.display = "inline-block";
+            hint.style["text-decoration"] = "underline"
+        });
+        hint.addEventListener("mouseout", function() {
+            ts.style.display = "none";
+            hint.style["text-decoration"] = "none"
+        });
+    }
+    client.send();
+}
+
 reload(null);
+load_timestamp();
